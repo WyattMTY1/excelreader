@@ -1,10 +1,19 @@
 import { useState } from "react";
 import * as XLSX from "xlsx";
-import { TableBody, TableHead,TableCell, TableRow, Table } from "@mui/material";
+import {
+  TableBody,
+  TableHead,
+  TableCell,
+  TableRow,
+  Table,
+} from "@mui/material";
+import Swal from "sweetalert2";
+import Editar1 from "./editar1";
 
 const Pruebas = () => {
   const [tableData, setTableData] = useState([]);
   const [rowSelect, setRowSelect] = useState([]);
+  const [swalShown, setSwalShown] = useState(false);
   const EMPRESA_REGEX = /^[A-Z]+$/;
   const NOMBRE_REGEX = /^[A-Za-zÀ-ÖØ-öø-ÿ\\s\\']+$/;
   const MAS_NOMBRES_REGEX = /^[A-Za-z\s]*$/;
@@ -107,27 +116,23 @@ const Pruebas = () => {
             {cell}
           </TableCell>
         );
-        
-        
       });
       if (rowIndex === 0) {
         // Titulos
-          rowData.push(
-            <TableHead >
-              acciones
-            </TableHead>
-          )
-
-      }else{
-          // Agregar la columna
-          rowData.push(
-            <TableCell key="edit">
-              <button onClick={() => {
-                console.log(row);
+        rowData.push(<TableHead>acciones</TableHead>);
+      } else {
+        // Agregar la columna
+        rowData.push(
+          <TableCell key="edit">
+            <button
+              onClick={() => {
                 setRowSelect(row);
-              }}>Editar</button>
-            </TableCell>
-          )
+              }}
+            >
+              Editar
+            </button>
+          </TableCell>
+        );
       }
 
       return <tr key={rowIndex}>{rowData}</tr>;
@@ -136,7 +141,12 @@ const Pruebas = () => {
     setTableData(processedData);
   };
 
-  {console.log(rowSelect)}
+  {
+    console.log(rowSelect);
+  }
+
+
+
   return (
     <div>
       <input type="file" onChange={handleFileUpload} />
@@ -144,6 +154,9 @@ const Pruebas = () => {
       <Table border="1">
         <TableBody>{tableData}</TableBody>
       </Table>
+      <h1>Componente Padre</h1>
+      <p>Datos en el componente padre: {rowSelect.nombre}</p>
+      <Editar1 row={rowSelect} />
     </div>
   );
 };

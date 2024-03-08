@@ -8,6 +8,7 @@ import Prueba from "./assets/views/prueba";
 // import Editar from "./assets/views/editar";
 import Validacion from "./assets/views/validacion";
 import Pruebas from "./assets/views/pruebas2";
+import Editar1 from "./assets/views/editar1";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <Route path="/lectura" element={<LecturadeDatos />} />
       <Route path="/prueba" element={<Prueba />} />
       <Route path="/pruebas" element={<Pruebas />} />
+      <Route path="/editar" element={<Editar1 />} />
     </Routes>
   );
 }
