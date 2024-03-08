@@ -3,15 +3,8 @@ import "./App.css";
 
 
 import { Route, Routes } from "react-router-dom";
-import LecturadeDatos from "./assets/views/lectura";
-import Prueba from "./assets/views/prueba";
-// import Editar from "./assets/views/editar";
-import Validacion from "./assets/views/validacion";
-import Pruebas from "./assets/views/pruebas2";
-import Editar1 from "./assets/views/envioDatos";
-import ExcelReader from "./assets/views/prueba3";
 import ExcelUploader from "./assets/views/envioDatos";
-import Respuesta from "./assets/views/respuesta";
+
 
 
 function App() {
