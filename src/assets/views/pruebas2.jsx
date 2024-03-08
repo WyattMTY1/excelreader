@@ -8,7 +8,7 @@ import {
   Table,
 } from "@mui/material";
 import Swal from "sweetalert2";
-import Editar1 from "./editar1";
+import Editar1 from "./envioDatos";
 
 const Pruebas = () => {
   const [tableData, setTableData] = useState([]);
@@ -111,12 +111,22 @@ const Pruebas = () => {
         const cellStyle = {
           color: isValid ? "white" : "red",
         };
+        // Manejar valores nulos
+        const cellValue = cell !== null ? cell : "N/A";
         return (
           <TableCell key={colIndex} style={cellStyle}>
-            {cell}
+            {cellValue}
           </TableCell>
         );
       });
+      return (
+        <tr key={rowIndex}>
+          {rowData}
+          <td>
+            <button onClick={() => handleCorrection(row, rowIndex)}>Corregir</button>
+          </td>
+        </tr>
+      );
       if (rowIndex === 0) {
         // Titulos
         rowData.push(<TableHead>acciones</TableHead>);
@@ -134,7 +144,7 @@ const Pruebas = () => {
           </TableCell>
         );
       }
-
+      console.log(data);
       return <tr key={rowIndex}>{rowData}</tr>;
     });
 
@@ -145,8 +155,6 @@ const Pruebas = () => {
     console.log(rowSelect);
   }
 
-
-
   return (
     <div>
       <input type="file" onChange={handleFileUpload} />
@@ -156,7 +164,6 @@ const Pruebas = () => {
       </Table>
       <h1>Componente Padre</h1>
       <p>Datos en el componente padre: {rowSelect.nombre}</p>
-      <Editar1 row={rowSelect} />
     </div>
   );
 };

@@ -41,15 +41,18 @@ function LecturadeDatos() {
               {data.map((row, index) => (
                 <tr key={index}>
                   {Object.values(row).map((value, index) => (
+                    
+                    
                     <td key={index}>{value}</td>
+                    
                   ))}
                   <td>
                     <Link to="">
                       <button
                         onClick={() => {
-                          console.log(row);
+                        // console.log(row);
                           setDatos(index);
-                          console.log(datos);
+                          
                         }}
                       >
                         <FontAwesomeIcon icon={faPencil} />
@@ -61,6 +64,8 @@ function LecturadeDatos() {
             </tbody>
           </table>
         )}
+
+        {console.log(datos)}
       </div>
     </>
   );
