@@ -1,14 +1,15 @@
-// import { useState } from "react";
+
 import "../../App.css";
 import * as XLSX from "xlsx";
-// import { faPencil } from "@fortawesome/free-solid-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { Link } from "react-router-dom";
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 
 function Validacion() {
-//   const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
   const EMPRESA_REGEX = /^[A-Z]+$/;
   const NOMBRE_REGEX = /^[A-Za-zÀ-ÖØ-öø-ÿ\\s\\']+$/;
+  const MAS_NOMBRES_REGEX = /^[A-Za-z\s]*$/;
   const FECHA_NACIMIENTO_REGEX =
     /^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(\\d{4})$/;
   const RFC_REGEX = /^[A-ZÑ&]{3,4}\\d{6}[A-V1-9][A-Z1-9]\\d$/;
@@ -18,22 +19,22 @@ function Validacion() {
   const TELEFONO_REGEX = /^\\d{8}$/;
   const TELEFONO_PARTICULAR_REGEX = /^\\d{10}$/;
   const CORREO_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/;
-  const OBSERVACIONES_REGEX = "";
+  const OBSERVACIONES_REGEX = /^[A-Za-z\s]*$/;
   const CARD_NUMBER_REGEX = /^\\d{16}$/;
 
-//   const fileUpdate = (e) => {
-//     const reader = new FileReader();
-//     reader.readAsBinaryString(e.target.files[0]);
-//     reader.onload = (e) => {
-//       const data = e.target.result;
-//       const workbook = XLSX.read(data, { type: "binary" });
-//       const sheetName = workbook.SheetNames[0];
-//       const sheet = workbook.Sheets[sheetName];
-//       const paserdData = XLSX.utils.sheet_to_json(sheet);
-//       setData(paserdData);
-//       console.log(paserdData);
-//     };
-//   };
+  const fileUpdate = (e) => {
+    const reader = new FileReader();
+    reader.readAsBinaryString(e.target.files[0]);
+    reader.onload = (e) => {
+      const data = e.target.result;
+      const workbook = XLSX.read(data, { type: "binary" });
+      const sheetName = workbook.SheetNames[0];
+      const sheet = workbook.Sheets[sheetName];
+      const paserdData = XLSX.utils.sheet_to_json(sheet);
+      setData(paserdData);
+      console.log(paserdData);
+    };
+  };
 
   // Función para validar todas las columnas con regex
   const validarTodasLasColumnasRegex = (archivo, expresionesRegulares) => {
@@ -57,10 +58,10 @@ function Validacion() {
           const datos = XLSX.utils.sheet_to_json(
             libroDeTrabajo.Sheets[primeraHoja]
           );
-
+          setData(datos);
           // Realiza la validación para cada columna
           const columnasInvalidas = [];
-
+          const valorInvalido = [];
           // Itera sobre las expresiones regulares
           expresionesRegulares.forEach((regex, nombreColumna) => {
             // Obtiene los valores de la columna específica
@@ -72,6 +73,8 @@ function Validacion() {
             // Si no es válida, agrega el nombre de la columna a la lista de columnas inválidas
             if (!esValida) {
               columnasInvalidas.push(nombreColumna);
+              valorInvalido.push(valoresColumna);
+              console.log(valorInvalido);
             }
           });
 
@@ -113,7 +116,7 @@ function Validacion() {
   
           if (resultadoValidacion.valido) {
             console.log(
-              "Todas las columnas cumplen con las expresiones regulares."
+              "Todas los campos cumplen con las expresiones regulares."
             );
           } else {
             console.error(
@@ -157,7 +160,7 @@ function Validacion() {
         try {
           // Expresiones regulares para validar cada columna (por ejemplo, solo letras para "Nombre")
           const expresionesRegulares = new Map([
-            ["segundoNombre", NOMBRE_REGEX],
+            ["segundoNombre", MAS_NOMBRES_REGEX],
             // Agrega más expresiones regulares según las columnas que necesites validar
           ]);
   
@@ -185,7 +188,7 @@ function Validacion() {
         try {
           // Expresiones regulares para validar cada columna (por ejemplo, solo letras para "Nombre")
           const expresionesRegulares = new Map([
-            ["tercer Nombre", NOMBRE_REGEX],
+            ["tercer Nombre", MAS_NOMBRES_REGEX],
             // Agrega más expresiones regulares según las columnas que necesites validar
           ]);
   
@@ -554,7 +557,7 @@ function Validacion() {
           accept=".xlsx, .xls"
           onChange={manejarCambioArchivo}
         />
-        {/* {data.length > 0 && (
+        {data.length > 0 && (
           <table className="table">
             <thead>
               <tr>
@@ -571,7 +574,7 @@ function Validacion() {
                     <td key={index}>{value}</td>
                   ))}
                   <td>
-                    <Link to="">
+                    {/* <Link to=""> */}
                       <button
                         onClick={() => {
                           console.log(row);
@@ -579,13 +582,13 @@ function Validacion() {
                       >
                         <FontAwesomeIcon icon={faPencil} />
                       </button>
-                    </Link>
+                    {/* </Link> */}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-        )} */}
+        )}
       </div>
     </>
   );
