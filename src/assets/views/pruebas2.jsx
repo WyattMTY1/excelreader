@@ -41,6 +41,7 @@ const Pruebas = () => {
       const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
       processExcelData(jsonData);
+      console.log(jsonData);
     };
 
     reader.readAsArrayBuffer(file);

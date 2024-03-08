@@ -10,6 +10,7 @@ import Validacion from "./assets/views/validacion";
 import Pruebas from "./assets/views/pruebas2";
 import Editar1 from "./assets/views/envioDatos";
 import ExcelReader from "./assets/views/prueba3";
+import ExcelUploader from "./assets/views/envioDatos";
 
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
       <Route path="/lectura" element={<LecturadeDatos />} />
       <Route path="/prueba" element={<Prueba />} />
       <Route path="/pruebas" element={<Pruebas />} />
-      <Route path="/prueba1" element={<ExcelReader />} />
+      <Route path="/prueba1" element={<ExcelUploader />} />
       <Route path="/editar" element={<Editar1 />} />
     </Routes>
   );
